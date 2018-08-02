@@ -88,11 +88,12 @@
             }
         },
         watch:{
-            currentPage:function(val){
-                this.goPage(val);
-            },
-            'setting.currentPage': function(val){
+            // currentPage:function(val){
+            //     this.goPage(val);
+            // },
+            'setting.currentPage': function(val){  // 监听传入的currentPage变化
                 this.currentPage = val
+                console.log(val, 'currentPage')
             },
             'setting.totalRow':function(val){
                 this.totalRow = val;
@@ -129,6 +130,7 @@
                     }
                 }else if(typeof(pNum) === 'number'){
                     this.currentPage = pNum;
+                    this.goPage(pNum);
                 }
             },
             switchLength(){
