@@ -48,7 +48,7 @@
 
             return {
                 config: config,
-                pageNumber: 1,
+                pageNumber: 3,
                 pageSize: config.pageSizeMenu&&Array.isArray(config.pageSizeMenu)&&config.pageSizeMenu.length?config.pageSizeMenu[0]:10,
                 totalRow: config.totalRow,
                 totalPage: 0,
