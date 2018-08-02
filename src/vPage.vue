@@ -91,6 +91,9 @@
             currentPage:function(val){
                 this.goPage(val);
             },
+            'setting.currentPage': function(val){
+                this.currentPage = val
+            },
             'setting.totalRow':function(val){
                 this.totalRow = val;
                 this.calcTotalPage();
