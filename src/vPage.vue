@@ -88,7 +88,10 @@
             }
         },
         watch:{
-            // currentPage:function(val){
+            // 原本136行的代码只负责在点击之后更新currentPage，而这里的watch负责监听currentPage的改变，然后调用goPage()发送事件，注释掉这里，
+            // 改为：只要点击了某个标签，就直接发送事件，不需要通过监听来发送。
+            
+            // currentPage:function(val){ 
             //     this.goPage(val);
             // },
             'setting.currentPage': function(val){  // 监听传入的currentPage变化
@@ -130,7 +133,7 @@
                     }
                 }else if(typeof(pNum) === 'number'){
                     this.currentPage = pNum;
-                    this.goPage(pNum);
+                    this.goPage(pNum);    // 这里添加的方法，替换掉了94行的代码。
                 }
             },
             switchLength(){
