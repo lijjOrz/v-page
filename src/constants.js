@@ -30,7 +30,8 @@ const defaults = {
     info: true,
     pageSizeMenu: [10,20,50,100],
     language: 'cn',
-    align: 'right'
+    align: 'right',
+    currentPage: 2,
 };
 
 export default {

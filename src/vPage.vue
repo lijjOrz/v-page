@@ -52,7 +52,7 @@
                 pageSize: config.pageSizeMenu&&Array.isArray(config.pageSizeMenu)&&config.pageSizeMenu.length?config.pageSizeMenu[0]:10,
                 totalRow: config.totalRow,
                 totalPage: 0,
-                currentPage: 1,
+                currentPage: config.currentPage,
                 lengthList: config.pageSizeMenu,
                 pageNumberSize: 5,
                 language: config.language,
