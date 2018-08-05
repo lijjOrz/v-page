@@ -19,15 +19,15 @@
             <li :class="{disabled:currentPage === 1,bPageControlButton:true} ">
                 <a href="javascript:void(0);" @click="switchPage('first')">{{i18n.first}}</a>
             </li>
-            <li :class="{disabled:currentPage === 1,bPageControlButton:true}">
+            <!-- <li :class="{disabled:currentPage === 1,bPageControlButton:true}">
                 <a href="javascript:void(0);" @click="switchPage('previous')">{{i18n.previous}}</a>
-            </li>
+            </li> -->
             <li :class="{active:(num === currentPage)}" v-for="num,index in pageNumbers">
                 <a href="javascript:void(0);" @click="switchPage(num)">{{num}}</a>
             </li>
-            <li :class="{bPageControlButton:true,disabled:currentPage === totalPage}">
+            <!-- <li :class="{bPageControlButton:true,disabled:currentPage === totalPage}">
                 <a href="javascript:void(0);" @click="switchPage('next')">{{i18n.next}}</a>
-            </li>
+            </li> -->
             <li :class="{bPageControlButton:true,disabled:currentPage === totalPage}">
                 <a href="javascript:void(0);" @click="switchPage('last')">{{i18n.last}}</a>
             </li>
@@ -54,7 +54,7 @@
                 totalPage: 0,
                 currentPage: config.currentPage,
                 lengthList: config.pageSizeMenu,
-                pageNumberSize: 5,
+                pageNumberSize: 11,
                 language: config.language,
                 i18n: i18n,
                 pageClass : {
@@ -119,16 +119,22 @@
                 if(typeof(pNum) === 'string'){
                     switch (pNum){
                         case 'first':
-                            if(this.currentPage!==1) this.currentPage = 1;
+                            if(this.currentPage!==1) {
+                                this.currentPage = 1;
+                                this.goPage(1);
+                            }
                             break;
-                        case 'previous':
-                            if(this.currentPage!==1) this.currentPage--;
-                            break;
-                        case 'next':
-                            if(this.currentPage!==this.totalPage) this.currentPage++;
-                            break;
+                        // case 'previous':
+                        //     if(this.currentPage!==1) this.currentPage--;
+                        //     break;
+                        // case 'next':
+                        //     if(this.currentPage!==this.totalPage) this.currentPage++;
+                        //     break;
                         case 'last':
-                            if(this.currentPage!==this.totalPage) this.currentPage = this.totalPage;
+                            if(this.currentPage!==this.totalPage){
+                                this.currentPage = this.totalPage;
+                                this.goPage(this.totalPage);
+                            } 
                             break;
                     }
                 }else if(typeof(pNum) === 'number'){
