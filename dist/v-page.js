@@ -137,7 +137,7 @@ var languages = __WEBPACK_IMPORTED_MODULE_0__constants__["a" /* default */].lang
             totalPage: 0,
             currentPage: config.currentPage,
             lengthList: config.pageSizeMenu,
-            pageNumberSize: 5,
+            pageNumberSize: 11,
             language: config.language,
             i18n: i18n,
             pageClass: {
@@ -176,7 +176,10 @@ var languages = __WEBPACK_IMPORTED_MODULE_0__constants__["a" /* default */].lang
         }
     },
     watch: {
-        // currentPage:function(val){
+        // 原本136行的代码只负责在点击之后更新currentPage，而这里的watch负责监听currentPage的改变，然后调用goPage()发送事件，注释掉这里，
+        // 改为：只要点击了某个标签，就直接发送事件，不需要通过监听来发送。
+
+        // currentPage:function(val){ 
         //     this.goPage(val);
         // },
         'setting.currentPage': function settingCurrentPage(val) {
@@ -205,21 +208,27 @@ var languages = __WEBPACK_IMPORTED_MODULE_0__constants__["a" /* default */].lang
             if (typeof pNum === 'string') {
                 switch (pNum) {
                     case 'first':
-                        if (this.currentPage !== 1) this.currentPage = 1;
+                        if (this.currentPage !== 1) {
+                            this.currentPage = 1;
+                            this.goPage(1);
+                        }
                         break;
-                    case 'previous':
-                        if (this.currentPage !== 1) this.currentPage--;
-                        break;
-                    case 'next':
-                        if (this.currentPage !== this.totalPage) this.currentPage++;
-                        break;
+                    // case 'previous':
+                    //     if(this.currentPage!==1) this.currentPage--;
+                    //     break;
+                    // case 'next':
+                    //     if(this.currentPage!==this.totalPage) this.currentPage++;
+                    //     break;
                     case 'last':
-                        if (this.currentPage !== this.totalPage) this.currentPage = this.totalPage;
+                        if (this.currentPage !== this.totalPage) {
+                            this.currentPage = this.totalPage;
+                            this.goPage(this.totalPage);
+                        }
                         break;
                 }
             } else if (typeof pNum === 'number') {
                 this.currentPage = pNum;
-                this.goPage(pNum);
+                this.goPage(pNum); // 这里添加的方法，替换掉了94行的代码。
             }
         },
         switchLength: function switchLength() {
@@ -258,7 +267,7 @@ var Plugin = {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_vPage_vue__ = __webpack_require__(0);
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_6422885d_hasScoped_true_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_vPage_vue__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_fefb0fd8_hasScoped_true_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_vPage_vue__ = __webpack_require__(10);
 function injectStyle (ssrContext) {
   __webpack_require__(3)
 }
@@ -273,12 +282,12 @@ var __vue_template_functional__ = false
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = "data-v-6422885d"
+var __vue_scopeId__ = "data-v-fefb0fd8"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
   __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_vPage_vue__["a" /* default */],
-  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_6422885d_hasScoped_true_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_vPage_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_fefb0fd8_hasScoped_true_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_vPage_vue__["a" /* default */],
   __vue_template_functional__,
   __vue_styles__,
   __vue_scopeId__,
@@ -299,7 +308,7 @@ var content = __webpack_require__(4);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(6)("3f43ce70", content, true, {});
+var update = __webpack_require__(6)("f5933080", content, true, {});
 
 /***/ }),
 /* 4 */
@@ -310,7 +319,7 @@ exports = module.exports = __webpack_require__(5)(false);
 
 
 // module
-exports.push([module.i, "div.vPagination[data-v-6422885d]{margin:0;display:block}div.vPagination.vPaginationRight[data-v-6422885d]{text-align:right}div.vPagination.vPaginationCenter[data-v-6422885d]{text-align:center}div.vPagination>ul[data-v-6422885d]{display:inline-block;margin-bottom:0;margin-left:0;-webkit-border-radius:0;-moz-border-radius:0;border-radius:0;-webkit-box-shadow:0 1px 2px rgba(0,0,0,.05);-moz-box-shadow:0 1px 2px rgba(0,0,0,.05);box-shadow:0 1px 2px rgba(0,0,0,.05);padding:0}div.vPagination>ul>li[data-v-6422885d]{text-align:center;display:inline;box-sizing:border-box;margin:0}div.vPagination>ul>li>a[data-v-6422885d]{margin:0;border:1px solid #ddd;border-radius:0;padding:6px 12px;line-height:20px;box-shadow:none;-moz-box-shadow:none;-webkit-box-shadow:none;background-color:#fff;float:left;text-decoration:none;border-left-width:0;box-sizing:content-box;color:#000;-webkit-transition:all .5s cubic-bezier(.175,.885,.32,1);transition:all .5s cubic-bezier(.175,.885,.32,1)}div.vPagination>ul>li>a[data-v-6422885d]:hover{box-shadow:0 0 12px rgba(0,0,0,.2);-moz-box-shadow:0 0 12px rgba(0,0,0,.2);-webkit-box-shadow:0 0 12px rgba(0,0,0,.2)}div.vPagination>ul>li.disabled>a[data-v-6422885d]{color:#999;cursor:default}div.vPagination>ul>li.disabled>a[data-v-6422885d]:hover{color:#999;background-color:#fff;box-shadow:none}div.vPagination>ul>li.active>a[data-v-6422885d],div.vPagination>ul>li.active>span[data-v-6422885d]{cursor:default;color:#999;background-color:#eee}div.vPagination>ul>li.active>a[data-v-6422885d]:hover,div.vPagination>ul>li.active>span[data-v-6422885d]:hover{box-shadow:none}div.vPagination>ul>li:first-child>a[data-v-6422885d],div.vPagination>ul>li:first-child>span[data-v-6422885d]{border-left-width:1px;-webkit-border-bottom-left-radius:2px;border-bottom-left-radius:2px;-webkit-border-top-left-radius:2px;border-top-left-radius:2px;-moz-border-radius-bottomleft:2px;-moz-border-radius-topleft:2px}div.vPagination>ul>li:last-child>a[data-v-6422885d],div.vPagination>ul>li:last-child>span[data-v-6422885d]{-webkit-border-bottom-right-radius:2px;border-bottom-right-radius:2px;-webkit-border-top-right-radius:2px;border-top-right-radius:2px;-moz-border-radius-bottomright:2px;-moz-border-radius-topright:2px}div.vPagination>ul>li.vPaginationList a[data-v-6422885d]{line-height:20px;height:20px}div.vPagination>ul>li.vPaginationList select[data-v-6422885d]{margin:-2px 0 0 5px;width:auto!important;vertical-align:middle;height:22px;line-height:22px;font-size:12px;padding:0;display:inline-block;border:1px solid #ccc}div.vPagination>ul>li.vPaginationList select[data-v-6422885d]:hover{box-shadow:0 0 8px rgba(0,0,0,.2);-moz-box-shadow:0 0 8px rgba(0,0,0,.2);-webkit-box-shadow:0 0 8px rgba(0,0,0,.2)}", ""]);
+exports.push([module.i, "div.vPagination[data-v-fefb0fd8]{margin:0;display:block}div.vPagination.vPaginationRight[data-v-fefb0fd8]{text-align:right}div.vPagination.vPaginationCenter[data-v-fefb0fd8]{text-align:center}div.vPagination>ul[data-v-fefb0fd8]{display:inline-block;margin-bottom:0;margin-left:0;-webkit-border-radius:0;-moz-border-radius:0;border-radius:0;-webkit-box-shadow:0 1px 2px rgba(0,0,0,.05);-moz-box-shadow:0 1px 2px rgba(0,0,0,.05);box-shadow:0 1px 2px rgba(0,0,0,.05);padding:0}div.vPagination>ul>li[data-v-fefb0fd8]{text-align:center;display:inline;box-sizing:border-box;margin:0}div.vPagination>ul>li>a[data-v-fefb0fd8]{margin:0;border:1px solid #ddd;border-radius:0;padding:6px 12px;line-height:20px;box-shadow:none;-moz-box-shadow:none;-webkit-box-shadow:none;background-color:#fff;float:left;text-decoration:none;border-left-width:0;box-sizing:content-box;color:#000;-webkit-transition:all .5s cubic-bezier(.175,.885,.32,1);transition:all .5s cubic-bezier(.175,.885,.32,1)}div.vPagination>ul>li>a[data-v-fefb0fd8]:hover{box-shadow:0 0 12px rgba(0,0,0,.2);-moz-box-shadow:0 0 12px rgba(0,0,0,.2);-webkit-box-shadow:0 0 12px rgba(0,0,0,.2)}div.vPagination>ul>li.disabled>a[data-v-fefb0fd8]{color:#999;cursor:default}div.vPagination>ul>li.disabled>a[data-v-fefb0fd8]:hover{color:#999;background-color:#fff;box-shadow:none}div.vPagination>ul>li.active>a[data-v-fefb0fd8],div.vPagination>ul>li.active>span[data-v-fefb0fd8]{cursor:default;color:#999;background-color:#eee}div.vPagination>ul>li.active>a[data-v-fefb0fd8]:hover,div.vPagination>ul>li.active>span[data-v-fefb0fd8]:hover{box-shadow:none}div.vPagination>ul>li:first-child>a[data-v-fefb0fd8],div.vPagination>ul>li:first-child>span[data-v-fefb0fd8]{border-left-width:1px;-webkit-border-bottom-left-radius:2px;border-bottom-left-radius:2px;-webkit-border-top-left-radius:2px;border-top-left-radius:2px;-moz-border-radius-bottomleft:2px;-moz-border-radius-topleft:2px}div.vPagination>ul>li:last-child>a[data-v-fefb0fd8],div.vPagination>ul>li:last-child>span[data-v-fefb0fd8]{-webkit-border-bottom-right-radius:2px;border-bottom-right-radius:2px;-webkit-border-top-right-radius:2px;border-top-right-radius:2px;-moz-border-radius-bottomright:2px;-moz-border-radius-topright:2px}div.vPagination>ul>li.vPaginationList a[data-v-fefb0fd8]{line-height:20px;height:20px}div.vPagination>ul>li.vPaginationList select[data-v-fefb0fd8]{margin:-2px 0 0 5px;width:auto!important;vertical-align:middle;height:22px;line-height:22px;font-size:12px;padding:0;display:inline-block;border:1px solid #ccc}div.vPagination>ul>li.vPaginationList select[data-v-fefb0fd8]:hover{box-shadow:0 0 8px rgba(0,0,0,.2);-moz-box-shadow:0 0 8px rgba(0,0,0,.2);-webkit-box-shadow:0 0 8px rgba(0,0,0,.2)}", ""]);
 
 // exports
 
@@ -821,7 +830,7 @@ var defaults = {
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{class:[_vm.pageClass]},[_c('ul',[(_vm.config.pageSizeMenu)?_c('li',{staticClass:"disabled vPaginationList"},[_c('a',[_vm._v(_vm._s(_vm.i18n.pageLength)+"\n                "),_c('select',{directives:[{name:"model",rawName:"v-model",value:(_vm.pageSize),expression:"pageSize"}],on:{"change":[function($event){var $$selectedVal = Array.prototype.filter.call($event.target.options,function(o){return o.selected}).map(function(o){var val = "_value" in o ? o._value : o.value;return val}); _vm.pageSize=$event.target.multiple ? $$selectedVal : $$selectedVal[0]},_vm.switchLength]}},_vm._l((_vm.lengthList),function(len){return _c('option',[_vm._v(_vm._s(len))])}))])]):_vm._e(),_vm._v(" "),(_vm.config.info)?_c('li',{staticClass:"disabled bPageInfo"},[_c('a',[_vm._v(_vm._s(_vm.i18n.pageInfo
                 .replace('#pageNumber#', _vm.currentPage)
                 .replace('#totalPage#', _vm.totalPage)
-                .replace('#totalRow#', _vm.totalRow)))])]):_vm._e(),_vm._v(" "),_c('li',{class:{disabled:_vm.currentPage === 1,bPageControlButton:true}},[_c('a',{attrs:{"href":"javascript:void(0);"},on:{"click":function($event){_vm.switchPage('first')}}},[_vm._v(_vm._s(_vm.i18n.first))])]),_vm._v(" "),_c('li',{class:{disabled:_vm.currentPage === 1,bPageControlButton:true}},[_c('a',{attrs:{"href":"javascript:void(0);"},on:{"click":function($event){_vm.switchPage('previous')}}},[_vm._v(_vm._s(_vm.i18n.previous))])]),_vm._v(" "),_vm._l((_vm.pageNumbers),function(num,index){return _c('li',{class:{active:(num === _vm.currentPage)}},[_c('a',{attrs:{"href":"javascript:void(0);"},on:{"click":function($event){_vm.switchPage(num)}}},[_vm._v(_vm._s(num))])])}),_vm._v(" "),_c('li',{class:{bPageControlButton:true,disabled:_vm.currentPage === _vm.totalPage}},[_c('a',{attrs:{"href":"javascript:void(0);"},on:{"click":function($event){_vm.switchPage('next')}}},[_vm._v(_vm._s(_vm.i18n.next))])]),_vm._v(" "),_c('li',{class:{bPageControlButton:true,disabled:_vm.currentPage === _vm.totalPage}},[_c('a',{attrs:{"href":"javascript:void(0);"},on:{"click":function($event){_vm.switchPage('last')}}},[_vm._v(_vm._s(_vm.i18n.last))])])],2)])}
+                .replace('#totalRow#', _vm.totalRow)))])]):_vm._e(),_vm._v(" "),_c('li',{class:{disabled:_vm.currentPage === 1,bPageControlButton:true}},[_c('a',{attrs:{"href":"javascript:void(0);"},on:{"click":function($event){_vm.switchPage('first')}}},[_vm._v(_vm._s(_vm.i18n.first))])]),_vm._v(" "),_vm._l((_vm.pageNumbers),function(num,index){return _c('li',{class:{active:(num === _vm.currentPage)}},[_c('a',{attrs:{"href":"javascript:void(0);"},on:{"click":function($event){_vm.switchPage(num)}}},[_vm._v(_vm._s(num))])])}),_vm._v(" "),_c('li',{class:{bPageControlButton:true,disabled:_vm.currentPage === _vm.totalPage}},[_c('a',{attrs:{"href":"javascript:void(0);"},on:{"click":function($event){_vm.switchPage('last')}}},[_vm._v(_vm._s(_vm.i18n.last))])])],2)])}
 var staticRenderFns = []
 var esExports = { render: render, staticRenderFns: staticRenderFns }
 /* harmony default export */ __webpack_exports__["a"] = (esExports);
